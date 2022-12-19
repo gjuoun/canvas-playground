@@ -38,8 +38,8 @@ export const Mask = () => {
     // ! mask
     let mask = new PIXI.Graphics();
     // Add the rectangular area to show， any color is fine
-    mask.beginFill(0xffffff); 
-    mask.drawRect(0, 0, 100, 100);
+    mask.beginFill(0xffffff);
+    mask.drawRect(0, 0, 200, 200);
     mask.endFill();
     //! Set the mask to use our graphics object from above
     maskContainer.mask = mask;
@@ -52,7 +52,15 @@ export const Mask = () => {
 
   const ref = useRef<HTMLDivElement>(null);
 
-  const updateLoop = () => {};
+  const updateLoop = () => {
+    // Add a ticker callback to scroll the text up and down
+    let elapsed = 0.0;
+    app.ticker.add((delta) => {
+      // Update the text's y coordinate to scroll it
+      elapsed += delta;
+      text.y = 10 + -100.0 + Math.cos(elapsed / 50.0) * 100.0;
+    });
+  };
 
   useEffect(() => {
     if (ref.current) {
